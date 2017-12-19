@@ -20,6 +20,7 @@
 #include <iostream>
 #include <string>
 
+#include <ert/ecl/ecl_sum.h>
 #include <ert/util/util.h>
 
 #include "nex/private/util.hpp"

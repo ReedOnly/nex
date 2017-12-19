@@ -1,0 +1,3 @@
+[submodule "external/multibuild"]
+	path = external/multibuild
+	url = https://github.com/matthew-brett/multibuild.git

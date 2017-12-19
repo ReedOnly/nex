@@ -13,14 +13,18 @@ target_link_libraries(nex PUBLIC ecl)
 install(TARGETS nex
         ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-        RUNTIME DESTINATION ${CMAKE_INSTALL_LIBDIR})
+        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 
 
 if(NOT BUILD_TESTING)
     return()
 endif()
 
-file(COPY tests/data/ DESTINATION data)
+file(GLOB plts "${testdata}/*.plt")
+foreach (plt ${plts})
+    get_filename_component(fl ${plt} NAME)
+    configure_file(${plt} test-data/${fl} COPYONLY)
+endforeach ()
 
 foreach (name nexus_plot_load
               nexus_plot_spe1

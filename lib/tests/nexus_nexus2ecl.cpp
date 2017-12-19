@@ -31,7 +31,7 @@
 
 void test_create_ecl_sum() {
 
-    const nex::NexusPlot plt = nex::load("data/SPE1.plt");
+    const nex::NexusPlot plt = nex::load("test-data/SPE1.plt");
     auto data = plt.data;
 
     test_work_area_type *work_area = test_work_area_alloc("nexus_header");
@@ -105,11 +105,11 @@ void test_create_ecl_sum() {
  */
 void test_ecl_timesteps() {
 
-    const nex::NexusPlot plt = nex::load("data/SPE1_delayedWell.plt");
+    const nex::NexusPlot plt = nex::load("test-data/SPE1_delayedWell.plt");
     auto data = plt.data;
 
     test_work_area_type *work_area = test_work_area_alloc("nexus_timesteps");
-    
+
     ecl_sum_type *ecl_sum = nex::ecl_summary( "ECL_CASE", false, plt );
     ecl_sum_fwrite( ecl_sum );
     ecl_sum_free( ecl_sum );
@@ -138,7 +138,7 @@ void test_ecl_timesteps() {
 }
 
 void test_multiple_field() {
-    const nex::NexusPlot plt = nex::load("data/SPE1.plt");
+    const nex::NexusPlot plt = nex::load("test-data/SPE1.plt");
 
     /* Check data */
     ecl_sum_type *ecl_sum1 = nex::ecl_summary( "ECL_CASE", false, plt, "FIELD" );

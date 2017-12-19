@@ -207,7 +207,7 @@ void test_spe1_class_varnames(const NexusPlot& plt) {
 
 
 int main(int argc, char* argv[]) {
-    const auto spe1 = load("data/SPE1.plt");
+    const auto spe1 = load("test-data/SPE1.plt");
 
     test_spe1_header(spe1);
     test_spe1_classes(spe1);

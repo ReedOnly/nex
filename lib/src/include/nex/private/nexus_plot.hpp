@@ -29,8 +29,10 @@
 #include <string>
 #include <vector>
 
-#include <ert/ecl/ecl_sum.h>
 #include <nex/private/unit.hpp>
+
+
+typedef struct ecl_sum_struct       ecl_sum_type;
 
 namespace nex {
 

@@ -1,0 +1,50 @@
+project(pynex)
+set(PACKAGE_VERSION 0.0.2)
+
+find_package(PythonInterp REQUIRED)
+if (NOT PYTHON_EXECUTABLE)
+    message(SEND_ERROR "Could not find python executable")
+    return()
+endif()
+
+set(SETUP_PY_IN "${CMAKE_CURRENT_SOURCE_DIR}/setup.py.in")
+set(SETUP_PY    "${CMAKE_CURRENT_BINARY_DIR}/setup.py")
+configure_file(${SETUP_PY_IN} ${SETUP_PY})
+
+add_custom_target(
+    nex-python ALL
+    COMMENT "Building python library with setup.py"
+    VERBATIM
+    COMMAND ${CMAKE_COMMAND} -E
+            copy_directory ${CMAKE_CURRENT_SOURCE_DIR}/test
+                           ${CMAKE_CURRENT_BINARY_DIR}/test
+    COMMAND ${PYTHON_EXECUTABLE} ${SETUP_PY}
+        build_ext --rpath $<TARGET_FILE_DIR:nex>
+        install_lib -d ${CMAKE_CURRENT_BINARY_DIR}
+)
+
+add_dependencies(nex-python nex)
+
+install(CODE "execute_process(
+    COMMAND
+        ${PYTHON_EXECUTABLE} ${SETUP_PY}
+            install_egg_info --install-dir ${CMAKE_CURRENT_BINARY_DIR}
+            egg_info --egg-base ${CMAKE_CURRENT_BINARY_DIR}
+            install --prefix=${CMAKE_INSTALL_PREFIX}
+                    --single-version-externally-managed
+                    --record installed-files
+    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+)")
+
+if(NOT BUILD_TESTING)
+    return()
+endif()
+
+file(GLOB plts "${testdata}/*.plt")
+foreach (plt ${plts})
+    get_filename_component(fl ${plt} NAME)
+    configure_file(${plt} test-data/${fl} COPYONLY)
+endforeach ()
+
+set(py-test ${PYTHON_EXECUTABLE} -m unittest -v)
+add_test(NAME python.load COMMAND ${py-test} test.load)

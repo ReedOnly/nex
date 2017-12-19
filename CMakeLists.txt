@@ -21,8 +21,13 @@ else()
     message(FATAL_ERROR "Could not find htons")
 endif()
 
+set(BUILD_SHARED_LIBS ON)
 set(CXX_STANDARD -std=c++11 CACHE STRING "C++ revision flag")
-set(testdata ${CMAKE_CURRENT_SOURCE_DIR}/tests/data)
+set(testdata ${CMAKE_CURRENT_SOURCE_DIR}/test-data)
+
+set(NEX_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib/src/include)
+set(NEX_LIBRARY_DIR ${CMAKE_CURRENT_BINARY_DIR}/lib)
 
 add_subdirectory(lib)
 add_subdirectory(applications)
+add_subdirectory(python)
