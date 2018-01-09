@@ -7,6 +7,13 @@ if (NOT PYTHON_EXECUTABLE)
     return()
 endif()
 
+pybind11_add_module(pynex nex/nex.cpp)
+target_link_libraries(pynex PRIVATE nex)
+target_include_directories(pynex PUBLIC ${NEX_INCLUDE_DIR})
+set_target_properties(pynex PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/nex
+)
+
 set(SETUP_PY_IN "${CMAKE_CURRENT_SOURCE_DIR}/setup.py.in")
 set(SETUP_PY    "${CMAKE_CURRENT_BINARY_DIR}/setup.py")
 configure_file(${SETUP_PY_IN} ${SETUP_PY})

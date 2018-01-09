@@ -28,6 +28,7 @@ set(testdata ${CMAKE_CURRENT_SOURCE_DIR}/test-data)
 set(NEX_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/lib/src/include)
 set(NEX_LIBRARY_DIR ${CMAKE_CURRENT_BINARY_DIR}/lib)
 
+add_subdirectory(external/pybind11)
 add_subdirectory(lib)
 add_subdirectory(applications)
 add_subdirectory(python)
