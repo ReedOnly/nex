@@ -29,8 +29,7 @@ add_custom_target(
         build_ext --rpath $<TARGET_FILE_DIR:nex>
         install_lib -d ${CMAKE_CURRENT_BINARY_DIR}
 )
-
-add_dependencies(nex-python nex)
+add_dependencies(nex-python nex pynex)
 
 install(CODE "execute_process(
     COMMAND
