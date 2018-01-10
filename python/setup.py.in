@@ -1,11 +1,5 @@
-from setuptools import setup, Extension
-import sys, os
-import setuptools
+from setuptools import setup
 
-class CMakeExtension(Extension):
-    def __init__(self, name, sourcedir=''):
-        Extension.__init__(self, name, sources=[])
-        self.sourcedir = os.path.abspath(sourcedir)
 
 setup(
     name='nex',
@@ -15,11 +9,10 @@ setup(
     author='Statoil ASA',
     author_email='fg_gpl@statoil.com',
     url='https://github.com/Statoil/nex',
-    package_dir={'' : '${CMAKE_CURRENT_SOURCE_DIR}'},
+    package_dir={'': '${CMAKE_CURRENT_SOURCE_DIR}'},
     packages=['nex'],
     package_data={'': ['License', 'README']},
     install_requires=['pandas >=0.21.1'],
-    setup_requires=['setuptools >=28', 'pybind11 >=2.2'],
-    ext_modules=[CMakeExtension('nex.pynex')],
+    setup_requires=['setuptools >=28'],
     zip_safe=False,
 )
