@@ -55,12 +55,22 @@ float get_value( nex::NexusData nd ) {
 
 
 /*
+ * NexusHeader
+ */
+
+
+
+
+/*
  * NexusPlot
  */
 
- std::vector< nex::NexusData > get_data(const nex::NexusPlot& plt) {
-     return plt.data;
- };
+std::vector< nex::NexusData > get_data(const nex::NexusPlot& plt) {
+    return plt.data;
+}
+std::vector< nex::NexusHeader > get_data(const nex::NexusPlot& plt) {
+    return plt.header;
+};
 
 }
 
@@ -78,6 +88,7 @@ PYBIND11_MODULE(pynex, m) {
 
     py::class_< nex::NexusPlot >(m, "NexusPlot")
         .def_property_readonly("_data", &get_data)
+        .def_property_readonly("_header", &get_header)
         ;
 
     m.doc() = R"pbdoc(
